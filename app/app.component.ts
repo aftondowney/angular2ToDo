@@ -1,46 +1,7 @@
 import { Component, EventEmitter } from 'angular2/core';
+import { TaskListComponent } from './task-list.component';
+import { Task } from './task.model';
 
-/////TaskComponent////
-@Component({
-  selector: 'task-display',
-  inputs: ['task'],
-  template: `
-  <h3>{{ task.description }}</h3>
-  `
-})
-
-export class TaskComponent {
-  public task: Task;
-}
-
-////TaskListComponent////
-@Component({
-  selector: 'task-list',
-  inputs: ['taskList'],
-  outputs: ['onTaskSelect'],
-  directives: [TaskComponent ],
-  template: `
-  <task-display *ngFor="#currentTask of taskList" (click)="taskClicked(currentTask)"
-  [class.selected]="currentTask === selectedTask"
-  [task]="currentTask">
-  </task-display>
-  `
-})
-
-export class TaskListComponent {
-  public taskList: Task[];
-  public onTaskSelect: EventEmitter<Task>;
-  public selectedTask: Task;
-  constructor() {
-    this.onTaskSelect = new EventEmitter();
-  }
-  taskClicked(clickedTask: Task): void {
-    console.log('child', clickedTask);
-    this.selectedTask = clickedTask;
-    this.onTaskSelect.emit(clickedTask);
-  }
-}
-/////end TaskListComponent/////
 
 /////MyAppComponent//////
 @Component({
@@ -56,7 +17,6 @@ export class TaskListComponent {
   `
 })
 
-
 export class AppComponent {
   public tasks: Task[];
   constructor(){
@@ -69,12 +29,5 @@ export class AppComponent {
   }
   taskWasSelected(clickedTask: Task): void {
     console.log(clickedTask);
-  }
-}
-
-
-export class Task {
-  public done: boolean = false;
-  constructor(public description: string, public id: number){
   }
 }
