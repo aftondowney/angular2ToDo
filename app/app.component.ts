@@ -10,6 +10,25 @@ import { Component } from 'angular2/core';
   `
 })
 
+////TaskListComponent////
+@Component({
+  selector: 'task-list',
+  inputs: ['taskList'],
+  template: `
+  <h3 *ngFor="#currentTask of taskList" (click)="taskClicked(currentTask)">
+    {{ currentTask.description }}
+  </h3>
+  `
+})
+
+export class TaskListComponent {
+  public taskList: Task[];
+  taskClicked(clickedTask: Task): void {
+    console.log(clickedTask);
+  }
+}
+/////end TaskListComponent/////
+
 export class AppComponent {
   public tasks: Task[];
   constructor(){
