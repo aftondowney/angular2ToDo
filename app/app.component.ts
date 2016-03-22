@@ -5,7 +5,7 @@ import { Component } from 'angular2/core';
   template: `
     <div class="container">
       <h1>Skeleton Angular2 App!</h1>
-      <h3 *ngFor="#task of tasks">{{ task.description }}</h3>
+      <h3 *ngFor="#task of tasks" (click)="taskWasSelected(task)">{{ task.description }}</h3>
     <div>
   `
 })
@@ -20,8 +20,11 @@ export class AppComponent {
      new Task("Catch Katmandu", 3)
    ];
   }
-
+  taskWasSelected(clickedTask: Task): void {
+    console.log(clickedTask);
+  }
 }
+
 
 export class Task {
   public done: boolean = false;
